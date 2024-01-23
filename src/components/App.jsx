@@ -2,28 +2,37 @@ import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
+import Filter from './Filter/Filter';
 import Section from './Section/Section';
 import MainHeading from './MainHeading/MainHeading';
 
 class App extends Component {
   state = {
     contacts: [],
+    filter: '',
   };
 
-  handleFormSubmit = name => {
+  handleFormSubmit = (name, number) => {
     this.setState(prevState => ({
       contacts: [
         ...prevState.contacts,
         {
-          name,
           id: nanoid(),
+          name,
+          number,
         },
       ],
     }));
   };
 
+  handleFilter = filter => {
+    this.setState({
+      filter,
+    });
+  };
+
   render() {
-    const { contacts } = this.state;
+    const { contacts, filter } = this.state;
 
     return (
       <>
@@ -32,7 +41,8 @@ class App extends Component {
           <ContactForm onHandleSubmit={this.handleFormSubmit} />
         </Section>
         <Section title="Contacts">
-          <ContactList contacts={contacts} />
+          <Filter onHandleFilter={this.handleFilter} />
+          <ContactList contacts={contacts} filter={filter} />
         </Section>
       </>
     );
