@@ -13,16 +13,21 @@ class App extends Component {
   };
 
   handleFormSubmit = (name, number) => {
-    this.setState(prevState => ({
-      contacts: [
-        ...prevState.contacts,
-        {
-          id: nanoid(),
-          name,
-          number,
-        },
-      ],
-    }));
+    const { contacts } = this.state;
+    const nameContacts = contacts.map(contact => contact.name);
+
+    nameContacts.indexOf(name) > 0
+      ? alert(`${name} is already in contacts.`)
+      : this.setState(prevState => ({
+          contacts: [
+            ...prevState.contacts,
+            {
+              id: nanoid(),
+              name,
+              number,
+            },
+          ],
+        }));
   };
 
   handleFilter = filter => {
