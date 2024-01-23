@@ -11,6 +11,7 @@ class ContactList extends Component {
   static propTypes = {
     contacts: PropTypes.array,
     filter: PropTypes.string,
+    onHandleDeleteContact: PropTypes.func,
   };
 
   getFilteredContacts = () => {
@@ -24,6 +25,12 @@ class ContactList extends Component {
     });
   };
 
+  handleDeleteContact = name => {
+    const { onHandleDeleteContact } = this.props;
+
+    onHandleDeleteContact(name);
+  };
+
   render() {
     const filteredContacts = this.getFilteredContacts();
 
@@ -34,7 +41,11 @@ class ContactList extends Component {
 
           return (
             <li key={id}>
-              <Contact name={name} number={number}></Contact>
+              <Contact
+                name={name}
+                number={number}
+                onHandleDeleteContact={this.handleDeleteContact}
+              />
             </li>
           );
         })}
