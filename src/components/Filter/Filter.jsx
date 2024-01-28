@@ -5,6 +5,7 @@ import * as Styled from './styled';
 
 class Filter extends Component {
   static propTypes = {
+    filter: PropTypes.string,
     onHandleFilter: PropTypes.func,
   };
 
@@ -18,6 +19,8 @@ class Filter extends Component {
   };
 
   render() {
+    const { filter } = this.props;
+
     return (
       <Styled.FilterStyled>
         <label htmlFor={this.filterInputId}>Find contacts by name</label>
@@ -29,6 +32,7 @@ class Filter extends Component {
           title="Filter field may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           onChange={this.handleFilter}
           autoComplete="off"
+          value={filter}
           required
         />
       </Styled.FilterStyled>

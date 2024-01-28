@@ -56,7 +56,7 @@ class App extends Component {
             <Notification message="No contacts in phonebook" />
           ) : (
             <>
-              <Filter onHandleFilter={this.handleFilter} />
+              <Filter filter={filter} onHandleFilter={this.handleFilter} />
               <ContactList
                 contacts={contacts}
                 filter={filter}

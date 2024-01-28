@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Contact from 'components/Contact/Contact';
+import Notification from 'components/Notification/Notification';
 
 class ContactList extends Component {
   static defaultProps = {
@@ -35,21 +36,27 @@ class ContactList extends Component {
     const filteredContacts = this.getFilteredContacts();
 
     return (
-      <ul>
-        {filteredContacts.map(contact => {
-          const { id, name, number } = contact;
+      <>
+        {filteredContacts.length === 0 ? (
+          <Notification message="No contacts matching given criteria"></Notification>
+        ) : (
+          <ul>
+            {filteredContacts.map(contact => {
+              const { id, name, number } = contact;
 
-          return (
-            <li key={id}>
-              <Contact
-                name={name}
-                number={number}
-                onHandleDeleteContact={this.handleDeleteContact}
-              />
-            </li>
-          );
-        })}
-      </ul>
+              return (
+                <li key={id}>
+                  <Contact
+                    name={name}
+                    number={number}
+                    onHandleDeleteContact={this.handleDeleteContact}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </>
     );
   }
 }
